@@ -9,6 +9,10 @@ class FeedMonitor
     c.map!{ |i| i.first }
   end
 
+  def self.flavours
+    VendingMachine.flavours
+  end
+
   def self.perform
     url = 'http://feeds.bbci.co.uk/news/rss.xml'
     open(url) do |rss|
@@ -23,9 +27,9 @@ class FeedMonitor
 
   def self.trigger(item, kw)
     if date_stamp.nil? || item.pubDate > date_stamp
-      puts "#{item.title} matched #{kw}"
+    #  puts "#{item.title} matched #{kw}"
       File.write(marker, Marshal.dump(item.pubDate))
-      HTTParty.post('http://localhost:9292/dispense', query: { flavour: 'prawn-cocktail' })
+      HTTParty.post('http://localhost:9292/dispense', query: { flavour: self.flavours.keys.sample })
     end
   end
 
