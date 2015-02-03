@@ -1,11 +1,23 @@
 require 'spec_helper'
 
+class VendingMachine
+
+  def reset!
+    @arduino = nil
+  end
+
+end
+
 describe VendingMachine do
 
   before(:each) do
     @arduino = instance_double("ArduinoFirmata::Arduino")
     allow(ArduinoFirmata).to receive(:connect).with("/dev/ttyUSB1", bps: 115200, nonblock_io: true)
                                               .and_return(@arduino)
+  end
+
+  after(:each) do
+    VendingMachine.instance.reset!
   end
 
   it "sends a message to one of the correct pins" do
@@ -15,7 +27,7 @@ describe VendingMachine do
     end
     expect(@arduino).to receive(:digital_write).at_least(1).times
 
-    VendingMachine.dispense('salt-and-vinegar')
+    VendingMachine.instance.dispense('salt-and-vinegar')
   end
 
   it "resets the pin after triggering" do
@@ -25,8 +37,8 @@ describe VendingMachine do
       expect([6, 5, 7]).to include num
       expect(truthy).to eq(false)
     end
-    
-    VendingMachine.dispense('salt-and-vinegar')
+
+    VendingMachine.instance.dispense('salt-and-vinegar')
   end
 
 end

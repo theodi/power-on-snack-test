@@ -8,7 +8,7 @@ describe PowerOnSnackTest do
   end
 
   it "runs the vending machine when an exant flavour is requested" do
-    expect(VendingMachine).to receive(:dispense).with('cheese-and-onion')
+    expect_any_instance_of(VendingMachine).to receive(:dispense).with('cheese-and-onion')
     post 'dispense', flavour: 'cheese-and-onion'
     expect(last_response.status).to eq(203)
   end
