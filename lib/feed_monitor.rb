@@ -2,6 +2,7 @@ require 'csv'
 require 'httparty'
 require 'rss'
 require 'open-uri'
+require_relative 'vending_machine'
 
 class FeedMonitor
   def self.keywords
