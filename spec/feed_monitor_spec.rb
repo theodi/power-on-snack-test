@@ -57,4 +57,20 @@ describe FeedMonitor do
     FeedMonitor.perform
   end
 
+  it 'records the last 10 headlines' do
+    stub_request(:get, 'http://feeds.bbci.co.uk/news/rss.xml').to_return(body: File.open('spec/fixtures/rss-complete.xml'))
+    stub_request(:post, "http://localhost:9292/dispense").to_return(status: 200)
+    FileUtils.rm 'config/headlines.csv'
+
+    FeedMonitor.perform
+
+    my_csv = File.readlines('config/headlines.csv')
+
+    expect(File).to exist 'config/headlines.csv'
+    expect(my_csv.count).to eq 10
+
+    expect(my_csv[0].split(',')[2].strip).to eq 'true'
+    expect(my_csv[1].split(',')[2].strip).to eq 'false'
+  end
+
 end

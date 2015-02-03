@@ -15,15 +15,29 @@ class FeedMonitor
   end
 
   def self.perform
+    headlines = []
     url = 'http://feeds.bbci.co.uk/news/rss.xml'
     open(url) do |rss|
       feed = RSS::Parser.parse(rss)
       feed.items.each do |item|
+        triggered = false
         keywords.each do |kw|
-          trigger(item, kw) if item.title =~ /\b#{kw}\b/
+          if item.title =~ /\b#{kw}\b/
+            trigger(item, kw)
+            triggered = true
+          end
         end
+
+        headlines << "'#{item.title}',#{item.link},#{triggered}"
       end
     end
+
+    out = File.open 'config/headlines.csv', 'w'
+    headlines.reverse[0...10].each do |headline|
+      out.write headline
+      out.write "\n"
+    end
+    out.close
   end
 
   def self.trigger(item, kw)
