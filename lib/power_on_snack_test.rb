@@ -1,7 +1,7 @@
 require 'sinatra'
 require_relative './vending_machine'
 
-class PowerOnSnack < Sinatra::Base
+class PowerOnSnackTest < Sinatra::Base
 
   FLAVOURS =  VendingMachine.flavours.keys
 

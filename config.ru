@@ -4,6 +4,6 @@ Bundler.require
 
 ENV['RACK_ENV'] ||= 'development'
 
-require File.join(File.dirname(__FILE__), 'lib/power-on-snack.rb')
+require File.join(File.dirname(__FILE__), 'lib/power_on_snack_test.rb')
 
-run PowerOnSnack
+run PowerOnSnackTest

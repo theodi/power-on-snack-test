@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PowerOnSnack do
+describe PowerOnSnackTest do
 
   it "returns 404 when flavour does not exist" do
     post 'dispense', flavour: 'smoky-bacon' # I so wish we had these
