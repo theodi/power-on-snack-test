@@ -3,10 +3,12 @@ require 'yaml'
 
 class VendingMachine
 
+  CONFIG = YAML.load File.open 'config/config.yaml'
+
   def self.dispense(flavour)
     port = get_port flavour
     arduino.digital_write port, true
-    sleep 1
+    sleep CONFIG['pin_time']
     reset_port port
   end
 
@@ -15,7 +17,7 @@ class VendingMachine
   end
 
   def self.arduino
-    ArduinoFirmata.connect("/dev/ttyUSB1", bps: 115200, nonblock_io: true)
+    ArduinoFirmata.connect("/dev/ttyUSB#{CONFIG['usb_port']}", bps: 115200, nonblock_io: true)
   end
 
   def self.flavours
