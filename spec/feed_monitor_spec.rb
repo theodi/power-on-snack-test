@@ -34,4 +34,12 @@ describe FeedMonitor do
     FeedMonitor.perform
   end
 
+  it 'triggers a new feed item when the marker is present' do
+    stub_request(:get, 'http://feeds.bbci.co.uk/news/rss.xml').to_return(body: File.open('spec/fixtures/rss-new.xml'))
+    File.write('config/marker.txt', Marshal.dump(Time.parse('Tue, 03 Feb 2015 14:42:28 GMT')))
+
+    expect(HTTParty).to receive(:post).with('http://localhost:9292/dispense', query: { flavour: 'prawn-cocktail' })
+    FeedMonitor.perform
+  end
+
 end
