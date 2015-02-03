@@ -32,7 +32,7 @@ class FeedMonitor
       flav = self.flavours.keys.sample
       puts "Dispensing #{flav}"
       File.write(marker, Marshal.dump(item.pubDate))
-      HTTParty.post('http://localhost:9292/dispense', query: { flavour: flav })
+      HTTParty.post('http://localhost:9292/dispense', body: { flavour: flav })
     end
   end
 

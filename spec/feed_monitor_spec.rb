@@ -13,14 +13,14 @@ describe FeedMonitor do
   it 'triggers a crisp dispense event on a keyword match' do
     stub_request(:get, 'http://feeds.bbci.co.uk/news/rss.xml').to_return(body: File.open('spec/fixtures/rss.xml'))
 
-    expect(HTTParty).to receive(:post).with('http://localhost:9292/dispense', query: { flavour: String })
+    expect(HTTParty).to receive(:post).with('http://localhost:9292/dispense', body: { flavour: String })
 
     FeedMonitor.perform
   end
 
   it 'writes the last triggered pubDate to the marker file' do
     stub_request(:get, 'http://feeds.bbci.co.uk/news/rss.xml').to_return(body: File.open('spec/fixtures/rss.xml'))
-    stub_request(:post, /http:\/\/localhost:9292\/dispense\?flavour=.*/).to_return(status: 200)
+    stub_request(:post, "http://localhost:9292/dispense").to_return(status: 200)
 
     expect(File).to receive(:write).with('config/marker.txt', Marshal.dump(Time.parse("Tue, 03 Feb 2015 14:42:28 GMT")))
     FeedMonitor.perform
@@ -38,7 +38,7 @@ describe FeedMonitor do
     stub_request(:get, 'http://feeds.bbci.co.uk/news/rss.xml').to_return(body: File.open('spec/fixtures/rss-new.xml'))
     File.write('config/marker.txt', Marshal.dump(Time.parse('Tue, 03 Feb 2015 14:42:28 GMT')))
 
-    expect(HTTParty).to receive(:post).with('http://localhost:9292/dispense', query: { flavour: String })
+    expect(HTTParty).to receive(:post).with('http://localhost:9292/dispense', body: { flavour: String })
     FeedMonitor.perform
   end
 
@@ -51,7 +51,7 @@ describe FeedMonitor do
         'salt-and-vinegar',
         'cheese-and-onion',
         'ready-salted'
-      ]).to include hash[:query][:flavour]
+      ]).to include hash[:body][:flavour]
     end
 
     FeedMonitor.perform
