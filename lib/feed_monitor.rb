@@ -28,9 +28,11 @@ class FeedMonitor
 
   def self.trigger(item, kw)
     if date_stamp.nil? || item.pubDate > date_stamp
-    #  puts "#{item.title} matched #{kw}"
+      puts "#{item.title} matched '#{kw}'"
+      flav = self.flavours.keys.sample
+      puts "Dispensing #{flav}"
       File.write(marker, Marshal.dump(item.pubDate))
-      HTTParty.post('http://localhost:9292/dispense', query: { flavour: self.flavours.keys.sample })
+      HTTParty.post('http://localhost:9292/dispense', query: { flavour: flav })
     end
   end
 

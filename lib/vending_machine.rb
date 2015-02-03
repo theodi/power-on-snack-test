@@ -13,9 +13,11 @@ class VendingMachine
 
   def dispense(flavour)
     port = get_port flavour
+    puts "Dispensing on chute #{port}"
     arduino.digital_write port, true
     sleep CONFIG['pin_time']
     reset_port port
+    puts "Done dispensing"
   end
 
   def get_port(flavour)
