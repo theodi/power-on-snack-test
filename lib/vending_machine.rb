@@ -5,7 +5,7 @@ class VendingMachine
 
   def self.dispense(flavour)
     arduino.digital_write(get_port(flavour), true)
-    sleep 2
+    sleep 1
     reset_ports
   end
 
