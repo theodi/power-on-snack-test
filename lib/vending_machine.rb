@@ -4,9 +4,10 @@ require 'yaml'
 class VendingMachine
 
   def self.dispense(flavour)
-    arduino.digital_write(get_port(flavour), true)
+    port = get_port flavour
+    arduino.digital_write port, true
     sleep 1
-    reset_ports
+    reset_port port
   end
 
   def self.get_port(flavour)
@@ -21,9 +22,13 @@ class VendingMachine
     YAML.load File.read 'config/flavours.yaml'
   end
 
+  def self.reset_port port
+    arduino.digital_write port, false
+  end
+
   def self.reset_ports
     (1..13).each do |n|
-      arduino.digital_write(n, false)
+      self.reset_port n
     end
   end
 
