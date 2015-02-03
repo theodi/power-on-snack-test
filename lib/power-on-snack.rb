@@ -3,12 +3,7 @@ require_relative './vending-machine'
 
 class PowerOnSnack < Sinatra::Base
 
-  FLAVOURS = [
-    'salt-and-vinegar',
-    'prawn-cocktail',
-    'cheese-and-onion',
-    'ready-salted'
-  ]
+  FLAVOURS =  VendingMachine.flavours.keys
 
   post '/dispense' do
     if FLAVOURS.include?(params[:flavour])

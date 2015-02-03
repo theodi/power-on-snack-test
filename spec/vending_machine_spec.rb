@@ -10,7 +10,7 @@ describe VendingMachine do
 
   it "sends a message to one of the correct pins" do
     expect(@arduino).to receive(:digital_write) do |num, truthy|
-      expect(num).to be_between(1,3).inclusive
+      expect([6, 5, 7]).to include num
       expect(truthy).to eq(true)
     end
     expect(@arduino).to receive(:digital_write).at_least(1).times
