@@ -18,16 +18,14 @@ describe VendingMachine do
     VendingMachine.dispense('salt-and-vinegar')
   end
 
-  it "resets all the pins after triggering one" do
+  it "resets the pin after triggering" do
     expect(@arduino).to receive(:digital_write).once
 
-    (1..13).each do |n|
-      expect(@arduino).to receive(:digital_write) do |num, truthy|
-        expect(num).to eq(n)
-        expect(truthy).to eq(false)
-      end
+    expect(@arduino).to receive(:digital_write) do |num, truthy|
+      expect([6, 5, 7]).to include num
+      expect(truthy).to eq(false)
     end
-
+    
     VendingMachine.dispense('salt-and-vinegar')
   end
 
