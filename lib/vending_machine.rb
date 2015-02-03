@@ -14,7 +14,7 @@ class VendingMachine
   end
 
   def self.arduino
-    ArduinoFirmata.connect("/dev/ttyUSB1", bps: 115200, :nonblock_io => true)
+    ArduinoFirmata.connect("/dev/ttyUSB1", bps: 115200, nonblock_io: true)
   end
 
   def self.flavours
