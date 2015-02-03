@@ -13,9 +13,9 @@ class PowerOnSnack < Sinatra::Base
   post '/dispense' do
     if FLAVOURS.include?(params[:flavour])
       VendingMachine.dispense(params[:flavour])
-      return 200
+      return 203
     else
-      return 404
+      return 400
     end
   end
 
