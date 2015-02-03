@@ -1,4 +1,5 @@
 require 'arduino_firmata'
+require 'yaml'
 
 class VendingMachine
 
@@ -17,12 +18,7 @@ class VendingMachine
   end
 
   def self.flavours
-    {
-      'salt-and-vinegar' => [1,2,3],
-      'prawn-cocktail' => [4,5,6],
-      'cheese-and-onion' => [7,8,9],
-      'ready-salted' => [10,11,12]
-    }
+    YAML.load File.read 'config/flavours.yaml'
   end
 
   def self.reset_ports

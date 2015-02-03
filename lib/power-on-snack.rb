@@ -1,5 +1,5 @@
 require 'sinatra'
-require_relative './vending-machine'
+require_relative './vending_machine'
 
 class PowerOnSnack < Sinatra::Base
 
