@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe FeedMonitor do
+
+  before(:each) do
+    File.write('config/marker.txt', '')
+  end
+
   it 'has keywords' do
     expect(FeedMonitor.keywords[0]).to eq 'administration'
   end
@@ -12,4 +17,21 @@ describe FeedMonitor do
 
     FeedMonitor.perform
   end
+
+  it 'writes the last triggered pubDate to the marker file' do
+    stub_request(:get, 'http://feeds.bbci.co.uk/news/rss.xml').to_return(body: File.open('spec/fixtures/rss.xml'))
+    stub_request(:post, "http://localhost:9292/dispense?flavour=prawn-cocktail").to_return(status: 200)
+
+    expect(File).to receive(:write).with('config/marker.txt', Marshal.dump(Time.parse("Tue, 03 Feb 2015 14:42:28 GMT")))
+    FeedMonitor.perform
+  end
+
+  it 'does not trigger a crisp dispense event if pubDate is less than the marker' do
+    stub_request(:get, 'http://feeds.bbci.co.uk/news/rss.xml').to_return(body: File.open('spec/fixtures/rss.xml'))
+    File.write('config/marker.txt', Marshal.dump(Time.parse('Tue, 03 Feb 2015 14:42:28 GMT')))
+
+    expect(HTTParty).to_not receive(:post)
+    FeedMonitor.perform
+  end
+
 end
