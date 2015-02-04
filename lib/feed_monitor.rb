@@ -4,6 +4,7 @@ require 'rss'
 require 'open-uri'
 require 'logger'
 require_relative 'vending_machine'
+require_relative 'trigger'
 
 class FeedMonitor
 
@@ -57,6 +58,7 @@ class FeedMonitor
       LOG.info "Dispensing #{flav}"
       File.write(marker, Marshal.dump(item.pubDate))
       HTTParty.post('http://localhost:9292/dispense', body: { flavour: flav })
+      Trigger.perform(item.title, flav)
     end
   end
 

@@ -6,6 +6,7 @@ describe FeedMonitor do
     File.write('config/marker.txt', '')
     FileUtils.rm_f 'config/headlines.csv'
     FileUtils.touch 'config/headlines.csv'
+    allow(Trigger).to receive(:perform)
   end
 
   it 'has keywords' do
@@ -68,7 +69,15 @@ describe FeedMonitor do
     expect(HTTParty).to_not receive(:post).with('http://localhost:9292/dispense', body: { flavour: String })
 
     FeedMonitor.perform
+  end
 
+  it 'sends a trigger when a match occurs' do
+    stub_request(:get, 'http://feeds.bbci.co.uk/news/rss.xml').to_return(body: File.open('spec/fixtures/rss.xml'))
+    stub_request(:post, "http://localhost:9292/dispense").to_return(status: 200)
+
+    expect(Trigger).to receive(:perform).with('Purely to trigger crisps - recession', String)
+
+    FeedMonitor.perform
   end
 
 end
