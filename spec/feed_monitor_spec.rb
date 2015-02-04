@@ -41,13 +41,22 @@ describe FeedMonitor do
 
     FeedMonitor.perform
 
-    my_csv = File.readlines('config/headlines.csv')
+    my_csv = CSV.parse(File.read('config/headlines.csv'))
 
     expect(File).to exist 'config/headlines.csv'
     expect(my_csv.count).to eq 86
 
-    expect(my_csv[0].split(',')[2].strip).to eq 'true'
-    expect(my_csv[1].split(',')[2].strip).to eq 'false'
+    expect(my_csv[0][0].strip).to eq 'Tue, 03 Feb 2015 16:19:37 +0000'
+    expect(my_csv[1][0].strip).to eq 'Tue, 03 Feb 2015 16:10:39 +0000'
+
+    expect(my_csv[0][1].strip).to eq 'MPs say yes to three-person babies'
+    expect(my_csv[1][1].strip).to eq 'Lee to publish Mockingbird \'sequel\''
+
+    expect(my_csv[0][2].strip).to eq 'http://www.bbc.co.uk/news/health-31069173#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa'
+    expect(my_csv[1][2].strip).to eq 'http://www.bbc.co.uk/news/entertainment-arts-31118355#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa'
+
+    expect(my_csv[0][3].strip).to eq 'false'
+    expect(my_csv[1][3].strip).to eq 'false'
   end
 
   it 'only dispenses once for a given match' do

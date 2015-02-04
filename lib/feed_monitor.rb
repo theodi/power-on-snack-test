@@ -38,12 +38,12 @@ class FeedMonitor
           end
         end
 
-        headlines << "'#{item.title}',#{item.link},#{triggered}"
+        headlines << "\"#{item.pubDate}\",\"#{item.title}\",#{item.link},#{triggered}"
       end
     end
 
     out = File.open 'config/headlines.csv', 'w'
-    headlines.reverse.each do |headline|
+    headlines.each do |headline|
       out.write headline
       out.write "\n"
     end
