@@ -18,10 +18,10 @@ describe PowerOnSnackTest do
     get '/'
 
     expect(last_response.status).to eq(200)
-    expect(last_response.body).to match(/VIDEO: Vatican priests who are also recession astrophysicists/)
-    expect(last_response.body).to match(/http:\/\/www.bbc.co.uk\/news\/magazine-31051635#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa/)
-    expect(last_response.body).to match(/<li class="triggered"><a href="http:\/\/www.bbc.co.uk\/news\/magazine-31051635/)
-    expect(last_response.body).to match(/<li class="normal"><a href="http:\/\/www.bbc.co.uk\/news\/uk-3110437/)
+    expect(last_response.body).to match(/MPs say yes to three-person babies/)
+    expect(last_response.body).to match(/http:\/\/www.bbc.co.uk\/news\/health-31069173#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa/)
+    expect(last_response.body).to match(/<li class="triggered"><span class="timestamp">Tue, 03 Feb 2015 14:34:41 \+0000<\/span><a href="http:\/\/www.bbc.co.uk\/news\/uk-politics-31099106#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa/)
+    expect(last_response.body).to match(/<li class="normal"><span class="timestamp">Tue, 03 Feb 2015 16:19:37 \+0000<\/span><a href="http:\/\/www.bbc.co.uk\/news\/health-31069173#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa/)
     expect(last_response.body.scan(/<li /).count).to eq(10)
   end
 
