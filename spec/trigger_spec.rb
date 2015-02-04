@@ -4,9 +4,9 @@ describe Trigger do
 
   it 'sends a message to Mandrill' do
     expect_any_instance_of(Mandrill::Messages).to receive(:send).with({
-      :subject => "IFTTT Trigger",
+      :subject => String,
       :from_name => "ops@theodi.org",
-      :text => "Headline Headline dispensed Prawn Cocktail",
+      :text => "http://example.com",
       :to => [
         {
           :email=> "trigger@recipe.ifttt.com",
@@ -16,7 +16,7 @@ describe Trigger do
       :from_email => "ops@theodi.org"
     })
 
-    Trigger.perform("Headline", "prawn-cocktail")
+    Trigger.perform("http://example.com", "prawn-cocktail")
   end
 
   it 'humanizes flavours correctly' do
