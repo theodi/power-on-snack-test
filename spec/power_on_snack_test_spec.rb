@@ -22,7 +22,7 @@ describe PowerOnSnackTest do
     expect(last_response.body).to match(/http:\/\/www.bbc.co.uk\/news\/magazine-31051635#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa/)
     expect(last_response.body).to match(/<li class="triggered"><a href="http:\/\/www.bbc.co.uk\/news\/magazine-31051635/)
     expect(last_response.body).to match(/<li class="normal"><a href="http:\/\/www.bbc.co.uk\/news\/uk-3110437/)
-    expect(last_response.body.scan(/<li/).count).to eq(10)
+    expect(last_response.body.scan(/<li /).count).to eq(10)
   end
 
 end

@@ -7,6 +7,8 @@ class PowerOnSnackTest < Sinatra::Base
 
   register(Sinatra::Logger)
 
+  set :public_folder, "#{settings.root}/../public"
+
   unless settings.environment == "test"
     set :logger_log_file, lambda { "#{settings.root}/../log/#{settings.environment}.log" }
     set :logger_level, :info
@@ -17,9 +19,10 @@ class PowerOnSnackTest < Sinatra::Base
   get '/' do
     @headlines = CSV.parse(File.read('config/headlines.csv'))[0...10].map! { |l|
       {
-        headline: l[0],
-        url: l[1],
-        triggered: l[2] == 'true'
+        timestamp: l[0],
+        headline: l[1],
+        url: l[2],
+        triggered: l[3] == 'true'
       }
     }
     erb :index

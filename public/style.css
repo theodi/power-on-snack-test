@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'lucida_consoleregular';
+  src: url('lucon-webfont.eot');
+  src: url('lucon-webfont.eot?#iefix') format('embedded-opentype'),
+  url('lucon-webfont.woff2') format('woff2'),
+  url('lucon-webfont.woff') format('woff'),
+  url('lucon-webfont.ttf') format('truetype'),
+  url('lucon-webfont.svg#lucida_consoleregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'lucida_consoleregular';
+}
+
+h1 {
+  font-size: 100px;
+  font-weight: bold;
+  font-style: italic;
+  text-transform: uppercase;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+
+h2 {
+  font-size: 16px;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.timestamp {
+  margin-right: 200px;
+}
+
+.triggered {
+  color: red;
+}
+
+li a {
+  color: #000;
+  text-decoration: none;
+}
+
+li.triggered a {
+  color: red;
+}

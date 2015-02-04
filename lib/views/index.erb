@@ -4,13 +4,22 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Vending Machine</title>
+  <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 <body>
   <h1>Vending Machine</h1>
 
+  <p>This software controls the Vending Machine</p>
+
+  <p>It is programmed to continually scan the headlines on the BBC News RSS Feed, looking for terms relating to the recession.</p>
+
+  <p>As soon as a search term appears, then Vending Machine is commanded to release a packet of crisps. Visitors to the exhibition may take these crisps free of charge.</p>
+
+  <h2>BBC News RSS feed recent headlines:</h2>
+
   <ul>
     <% @headlines.each do |h| %>
-      <li class="<%= h[:triggered] === true ? 'triggered' : 'normal' %>"><a href="<%= h[:url] %>"><%= h[:headline] %></a></li>
+      <li class="<%= h[:triggered] === true ? 'triggered' : 'normal' %>"><span class="timestamp"><%= h[:timestamp] %></span><a href="<%= h[:url] %>"><%= h[:headline] %></a></li>
     <% end %>
   </ul>
 </body>
