@@ -30,12 +30,14 @@ describe VendingMachine do
     VendingMachine.instance.dispense('salt-and-vinegar')
   end
 
-  it "resets the pin after triggering" do
+  it "resets all the pins after triggering" do
     expect(@arduino).to receive(:digital_write).once
 
-    expect(@arduino).to receive(:digital_write) do |num, truthy|
-      expect([6, 5, 7]).to include num
-      expect(truthy).to eq(false)
+    (1..13).each do |n|
+      expect(@arduino).to receive(:digital_write) do |num, truthy|
+        expect(num).to eq(n)
+        expect(truthy).to eq(false)
+      end
     end
 
     VendingMachine.instance.dispense('salt-and-vinegar')
