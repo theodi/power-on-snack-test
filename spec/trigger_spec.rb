@@ -30,4 +30,8 @@ describe Trigger do
     end
   end
 
+  it 'generates a random message with the flavour' do
+    expect(Trigger.message('ready-salted')).to match /Ready Salted/
+  end
+
 end
