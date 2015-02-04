@@ -58,7 +58,7 @@ class FeedMonitor
       LOG.info "Dispensing #{flav}"
       File.write(marker, Marshal.dump(item.pubDate))
       HTTParty.post('http://localhost:9292/dispense', body: { flavour: flav })
-      Trigger.perform(item.title, flav)
+      Trigger.perform(item.link, flav)
     end
   end
 

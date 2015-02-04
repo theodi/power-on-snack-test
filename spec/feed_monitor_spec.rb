@@ -75,7 +75,7 @@ describe FeedMonitor do
     stub_request(:get, 'http://feeds.bbci.co.uk/news/rss.xml').to_return(body: File.open('spec/fixtures/rss.xml'))
     stub_request(:post, "http://localhost:9292/dispense").to_return(status: 200)
 
-    expect(Trigger).to receive(:perform).with('Purely to trigger crisps - recession', String)
+    expect(Trigger).to receive(:perform).with('http://www.bbc.co.uk/news/health-31069173#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa', String)
 
     FeedMonitor.perform
   end
