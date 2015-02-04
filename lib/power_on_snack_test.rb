@@ -1,7 +1,14 @@
 require 'sinatra'
+require 'sinatra/logger'
+
 require_relative './vending_machine'
 
 class PowerOnSnackTest < Sinatra::Base
+
+  register(Sinatra::Logger)
+
+  set :logger_log_file, lambda { "#{settings.root}/../log/#{settings.environment}.log" }
+  set :logger_level, :info
 
   FLAVOURS = VendingMachine.flavours.keys
 
@@ -18,7 +25,9 @@ class PowerOnSnackTest < Sinatra::Base
 
   post '/dispense' do
     if FLAVOURS.include?(params[:flavour])
-      VendingMachine.instance.dispense(params[:flavour])
+      logger.info("Dispensing #{params[:flavour]}...")
+      message = VendingMachine.instance.dispense(params[:flavour])
+      logger.info(message)
       halt 203
     else
       halt 400
