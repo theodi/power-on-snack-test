@@ -7,8 +7,10 @@ class PowerOnSnackTest < Sinatra::Base
 
   register(Sinatra::Logger)
 
-  set :logger_log_file, lambda { "#{settings.root}/../log/#{settings.environment}.log" }
-  set :logger_level, :info
+  unless settings.environment == "test"
+    set :logger_log_file, lambda { "#{settings.root}/../log/#{settings.environment}.log" }
+    set :logger_level, :info
+  end
 
   FLAVOURS = VendingMachine.flavours.keys
 
