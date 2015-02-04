@@ -2,9 +2,16 @@ require 'csv'
 require 'httparty'
 require 'rss'
 require 'open-uri'
+require 'logger'
 require_relative 'vending_machine'
 
 class FeedMonitor
+
+  FileUtils.mkdir_p 'log'
+  FileUtils.touch 'log/monitor.log'
+  LOG = Logger.new('log/monitor.log')
+  LOG.level = Logger::INFO
+
   def self.keywords
     c = CSV.read 'config/keywords.csv'
     c.map!{ |i| i.first }
@@ -42,9 +49,9 @@ class FeedMonitor
 
   def self.trigger(item, kw)
     if date_stamp.nil? || item.pubDate > date_stamp
-      puts "#{item.title} matched '#{kw}'"
+      LOG.info "'#{item.title}' matched '#{kw}'"
       flav = self.flavours.keys.sample
-      puts "Dispensing #{flav}"
+      LOG.info "Dispensing #{flav}"
       File.write(marker, Marshal.dump(item.pubDate))
       HTTParty.post('http://localhost:9292/dispense', body: { flavour: flav })
     end
