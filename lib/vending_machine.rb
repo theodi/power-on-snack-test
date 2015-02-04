@@ -16,7 +16,7 @@ class VendingMachine
     puts "Dispensing on chute #{port}"
     arduino.digital_write port, true
     sleep CONFIG['pin_time']
-    reset_port port
+    reset_ports
     puts "Done dispensing"
   end
 
