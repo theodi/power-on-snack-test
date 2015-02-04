@@ -2,3 +2,6 @@ language: ruby
 cache: bundler
 rvm:
 - 2.1.4
+env:
+  global:
+    - MANDRILL_APIKEY=some-fake-api-key
