@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vending Machine</title>
+</head>
+<body>
+  <h1>Vending Machine</h1>
+
+  <ul>
+    <% @headlines.each do |h| %>
+      <li class="<%= h[:triggered] === true ? 'triggered' : 'normal' %>"><a href="<%= h[:url] %>"><%= h[:headline] %></a></li>
+    <% end %>
+  </ul>
+</body>
+</html>
