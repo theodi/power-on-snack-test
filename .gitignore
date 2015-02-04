@@ -2,3 +2,4 @@ coverage/
 config/marker.txt
 log
 .env
+config/headlines.csv
