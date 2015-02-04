@@ -15,7 +15,7 @@ class PowerOnSnackTest < Sinatra::Base
   FLAVOURS = VendingMachine.flavours.keys
 
   get '/' do
-    @headlines = CSV.parse(File.read('config/headlines.csv')).map! { |l|
+    @headlines = CSV.parse(File.read('config/headlines.csv'))[0...10].map! { |l|
       {
         headline: l[0],
         url: l[1],
