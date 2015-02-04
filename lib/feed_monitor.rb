@@ -22,16 +22,19 @@ class FeedMonitor
   end
 
   def self.perform
+    last_run_headlines = (CSV.read 'config/headlines.csv').map { |line| line[0] }
     headlines = []
     url = 'http://feeds.bbci.co.uk/news/rss.xml'
     open(url) do |rss|
       feed = RSS::Parser.parse(rss)
       feed.items.each do |item|
         triggered = false
-        keywords.each do |kw|
-          if item.title =~ /\b#{kw}\b/
-            trigger(item, kw)
-            triggered = true
+        unless last_run_headlines.include? item.title
+          keywords.each do |kw|
+            if item.title =~ /\b#{kw}\b/
+              trigger(item, kw)
+              triggered = true
+            end
           end
         end
 
@@ -40,7 +43,7 @@ class FeedMonitor
     end
 
     out = File.open 'config/headlines.csv', 'w'
-    headlines.reverse[0...10].each do |headline|
+    headlines.reverse.each do |headline|
       out.write headline
       out.write "\n"
     end
