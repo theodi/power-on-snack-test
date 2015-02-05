@@ -18,10 +18,15 @@
 
   <h2>BBC News RSS feed recent headlines:</h2>
 
-  <ul>
-    <% @headlines.each do |h| %>
-      <li class="<%= h[:triggered] === true ? 'triggered' : 'normal' %>"><span class="timestamp"><%= h[:timestamp] %></span><a href="<%= h[:url] %>"><%= h[:headline] %></a></li>
-    <% end %>
-  </ul>
+  <% if @headlines.nil? %>
+    <p>No news to display (yet) </p>
+  <% else %>
+    <ul>
+      <% @headlines.each do |h| %>
+        <li class="<%= h[:triggered] === true ? 'triggered' : 'normal' %>"><span class="timestamp"><%= h[:timestamp] %></span><a href="<%= h[:url] %>"><%= h[:headline] %></a></li>
+      <% end %>
+    </ul>
+  <% end %>
+
 </body>
 </html>

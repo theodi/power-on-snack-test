@@ -24,7 +24,7 @@ class PowerOnSnackTest < Sinatra::Base
         url: l[2],
         triggered: l[3] == 'true'
       }
-    }
+    } rescue nil
     erb :index
   end
 
