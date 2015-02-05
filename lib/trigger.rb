@@ -22,7 +22,8 @@ class Trigger
       "Who has no thumbs and just dispensed a packet of #{flavour} crisps? This machine",
       "Oh hai! You'll never guess what - I've just dispensed a packet of #{flavour} crisps",
       "Check me out - I've just gone and dropped the finest packet of #{flavour} crisps you'll ever taste",
-      "Who likes #{flavour} crisps? 'Cos I've just dispensed a packet of them in my drawer"
+      "Who likes #{flavour} crisps? 'Cos I've just dispensed a packet of them in my drawer",
+      "I've just dropped the hottest #{flavour} crisps of #{DateTime.now.year} (Caution: Contents may not be hot)"
     ]
   end
 
