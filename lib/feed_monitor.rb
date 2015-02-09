@@ -23,8 +23,6 @@ class FeedMonitor
   end
 
   def self.perform
-    # LOG.info "Resetting ports"
-    # VendingMachine.instance.reset_ports
     LOG.info "I am running now - looking for headlines..."
     last_run_headlines = (CSV.read 'config/headlines.csv').map { |line| line[0] }
     headlines = []
