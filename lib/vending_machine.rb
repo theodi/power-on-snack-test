@@ -31,7 +31,6 @@ class VendingMachine
   def reset_ports
     (1..13).each do |n|
       reset_port n
-      sleep 0.1
     end
   end
 
