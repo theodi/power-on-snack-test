@@ -24,7 +24,7 @@ class FeedMonitor
 
   def self.perform
     LOG.info "I am running now - looking for headlines..."
-    last_run_headlines = (CSV.read 'config/headlines.csv').map { |line| line[0] }
+    last_run_headlines = (CSV.read('config/headlines.csv', {encoding: 'ISO-8859-1'})).map { |line| line[0] }
     headlines = []
     url = 'http://feeds.bbci.co.uk/news/rss.xml'
     open(url) do |rss|
