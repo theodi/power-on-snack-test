@@ -44,7 +44,6 @@ class FeedMonitor
       end
     end
 
-    FileUtils.rm 'config/headlines.csv'
     out = File.open 'config/headlines.csv', 'w'
     headlines.each do |headline|
       out.write headline
