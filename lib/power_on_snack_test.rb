@@ -17,14 +17,16 @@ class PowerOnSnackTest < Sinatra::Base
   FLAVOURS = VendingMachine.flavours.keys
 
   get '/' do
-    @headlines = CSV.parse(File.read('config/headlines.csv'))[0...10].map! { |l|
+
+    @headlines = CSV.parse(File.read('config/headlines.csv')).map! { |l|
       {
-        timestamp: l[0],
+        timestamp: DateTime.parse(l[0]),
         headline: l[1],
         url: l[2],
         triggered: l[3] == 'true'
       }
-    } rescue nil
+    }.sort_by { |h| h[:timestamp] }.reverse[0...10] rescue nil
+
     erb :index
   end
 
