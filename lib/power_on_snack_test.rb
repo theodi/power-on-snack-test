@@ -18,7 +18,7 @@ class PowerOnSnackTest < Sinatra::Base
 
   get '/' do
 
-    @headlines = CSV.parse(File.read('config/headlines.csv')).map! { |l|
+    @headlines = CSV.parse(File.open('config/headlines.csv', 'r:ISO-8859-1').read).map! { |l|
       {
         timestamp: DateTime.parse(l[0]),
         headline: l[1],
