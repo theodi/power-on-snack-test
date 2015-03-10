@@ -17,8 +17,7 @@ class PowerOnSnackTest < Sinatra::Base
   FLAVOURS = VendingMachine.flavours.keys
 
   get '/' do
-
-    @headlines = CSV.parse(File.open('config/headlines.csv', 'r:ISO-8859-1').read).map! { |l|
+    @headlines = CSV.parse(File.read('config/headlines.csv', {encoding: 'ISO-8859-1', mode: 'r'})).map! { |l|
       {
         timestamp: DateTime.parse(l[0]),
         headline: l[1],

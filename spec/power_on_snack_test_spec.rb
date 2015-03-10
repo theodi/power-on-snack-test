@@ -14,7 +14,7 @@ describe PowerOnSnackTest do
   end
 
   it "displays a list of the latest headlines" do
-    allow(File).to receive(:read).and_return(File.read("./spec/fixtures/headlines.csv"))
+    allow(File).to receive(:read).and_return(File.read('./spec/fixtures/headlines.csv'))
     get '/'
 
     expect(last_response.status).to eq(200)
