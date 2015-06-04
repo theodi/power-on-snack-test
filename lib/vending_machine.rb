@@ -8,7 +8,7 @@ class VendingMachine
   CONFIG = YAML.load File.open 'config/config.yaml'
 
   def arduino
-    @arduino ||= ArduinoFirmata.connect("/dev/ttyUSB#{CONFIG['usb_port']}", bps: 115200, nonblock_io: true)
+    @arduino ||= ArduinoFirmata.connect("/dev/ttyUSB#{CONFIG['usb_port']}")
   end
 
   def dispense(flavour)
