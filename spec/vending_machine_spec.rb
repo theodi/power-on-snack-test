@@ -12,7 +12,7 @@ describe VendingMachine do
 
   before(:each) do
     @arduino = instance_double("ArduinoFirmata::Arduino")
-    allow(ArduinoFirmata).to receive(:connect).with("/dev/ttyUSB0", bps: 115200, nonblock_io: true)
+    allow(ArduinoFirmata).to receive(:connect).with("/dev/ttyUSB0")
                                               .and_return(@arduino)
   end
 
