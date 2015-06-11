@@ -40,16 +40,15 @@ class FeedMonitor
           end
         end
 
-        headlines << "\"#{item.pubDate}\",\"#{item.title}\",#{item.link},#{triggered}"
+        headlines << [item.pubDate, item.title, item.link, triggered]
       end
     end
 
-    out = File.open 'config/headlines.csv', 'w'
-    headlines.each do |headline|
-      out.write headline
-      out.write "\n"
+    CSV.open('config/headlines.csv', 'w') do |csv|
+      headlines.each do |headline|
+        csv << headline
+      end
     end
-    out.close
   end
 
   def self.trigger(item, kw)
