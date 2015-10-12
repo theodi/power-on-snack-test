@@ -20,8 +20,8 @@ describe PowerOnSnackTest do
     expect(last_response.status).to eq(200)
     expect(last_response.body).to match(/MPs say yes to three-person babies/)
     expect(last_response.body).to match(/http:\/\/www.bbc.co.uk\/news\/health-31069173#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa/)
-    expect(last_response.body).to match(/<li class="triggered"><span class="timestamp">Tue, 03 Feb 2015 16:34:41 \+00:00<\/span><a href="http:\/\/www.bbc.co.uk\/news\/uk-politics-31099106#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa/)
-    expect(last_response.body).to match(/<li class="normal"><span class="timestamp">Tue, 03 Feb 2015 16:19:37 \+00:00<\/span><a href="http:\/\/www.bbc.co.uk\/news\/health-31069173#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa/)
+    expect(last_response.body).to match(/<li class="triggered"><span class="timestamp">Tue  3 Feb 16:34:41 BST<\/span><a href="http:\/\/www.bbc.co.uk\/news\/uk-politics-31099106#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa/)
+    expect(last_response.body).to match(/<li class="normal"><span class="timestamp">Tue  3 Feb 16:19:37 BST<\/span><a href="http:\/\/www.bbc.co.uk\/news\/health-31069173#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa/)
     expect(last_response.body.scan(/<li /).count).to eq(10)
   end
 
