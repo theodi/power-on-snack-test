@@ -40,10 +40,8 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
-
-.timestamp {
-  margin-right: 200px;
+  display: table;
+  width: 100%;
 }
 
 .triggered {
@@ -53,11 +51,22 @@ ul {
 li {
   margin-bottom: 3px;
   font-size: 18px;
+  display: table-row;
+}
+
+li .timestamp {
+  display: table-cell;
+  width: 50%;
 }
 
 li a {
   color: #111;
   text-decoration: none;
+  display: table-cell;
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 li.triggered a {
