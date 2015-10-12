@@ -16,13 +16,10 @@ body {
   padding: 50px 65px;
 }
 
-h1 {
-  font-size: 95px;
-  font-weight: bold;
-  font-style: italic;
-  text-transform: uppercase;
-  margin: 0 0 40px -10px;
+img {
+  margin: 0 0 40px 0;
   padding: 0;
+  width: 100%;
 }
 
 p {
